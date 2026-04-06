@@ -16,8 +16,8 @@ class Chat:
     >>> chat2.send_message('what is my name?', temperature=0.0)
     "Arrr, I be not aware o' yer name, matey."
     '''
-    client = Groq()
     def __init__(self):
+        self.client = Groq()
         self.messages = [
                 {
                     "role": "system",

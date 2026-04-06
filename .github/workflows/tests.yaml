@@ -1,0 +1,28 @@
+name: Doctest
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  doctest:
+    runs-on: ubuntu-latest
+    env:
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package and test tools
+        run: |
+          pip install .
+          pip install pytest coverage
+
+      - name: Run doctests with coverage
+        run: |
+          coverage run -m pytest --doctest-modules
+          coverage report -m
